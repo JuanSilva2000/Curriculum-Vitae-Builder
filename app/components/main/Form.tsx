@@ -95,20 +95,38 @@ const Form = ({ onValuesChange }: FormProps) => {
                     <AccordionContent>
                         <FieldGroup>
                             <FieldSet>
-                                <FieldGroup>
-                                    <Field>
-                                        <FieldLabel htmlFor="checkout-7j9-full-name-43j">
-                                            Full Name
-                                        </FieldLabel>
-                                        <Input
-                                            id="checkout-7j9-full-name-43j"
-                                            placeholder="Full Name"
-                                            required
-                                            type="text"
-                                            {...register("fullName")}
-                                        />
-                                    </Field>
-                                </FieldGroup>
+                                <div className="flex gap-4">
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel htmlFor="checkout-7j9-full-name-43j">
+                                                Full Name
+                                            </FieldLabel>
+                                            <Input
+                                                id="checkout-7j9-full-name-43j"
+                                                placeholder="Full Name"
+                                                required
+                                                type="text"
+                                                {...register("fullName")}
+                                            />
+                                        </Field>
+                                    </FieldGroup>
+
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel htmlFor="checkout-7j9-full-name-43j">
+                                                Professional Role
+                                            </FieldLabel>
+                                            <Input
+                                                id="checkout-7j9-full-name-43j"
+                                                placeholder="Software Developer"
+                                                required
+                                                type="text"
+                                                {...register("professional_role")}
+                                            />
+                                        </Field>
+                                    </FieldGroup>
+
+                                </div>
 
                                 <div className="flex gap-4">
                                     <FieldGroup>
@@ -150,7 +168,7 @@ const Form = ({ onValuesChange }: FormProps) => {
                                             </FieldLabel>
                                             <Input
                                                 id="checkout-7j9-linkedin-43j"
-                                                placeholder="LinkedIn/JohhDoe.com"
+                                                placeholder="https://www.linkedin.com/in/Name"
                                                 required
                                                 type="url"
                                                 {...register("linkedin")}
@@ -165,7 +183,7 @@ const Form = ({ onValuesChange }: FormProps) => {
                                             </FieldLabel>
                                             <Input
                                                 id="checkout-7j9-github-43j"
-                                                placeholder="GitHub/JohhDoe.com"
+                                                placeholder="https://github.com/Nickname"
                                                 required
                                                 type="url"
                                                 {...register("github")}

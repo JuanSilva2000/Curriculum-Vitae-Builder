@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react'
 export type ValuesCV = {
     [key: string]: string | undefined
     fullName?: string
+    profesional_role?: string
     email?: string
     phone?: string
     linkedin?: string

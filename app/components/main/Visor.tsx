@@ -88,10 +88,14 @@ const Visor = ({ values }: VisorProps) => {
             >
                 {/* Header */}
                 <header style={{ marginBottom: '15pt', borderBottom: '1pt solid black', paddingBottom: '10pt', textAlign: 'center' }}>
-                    <h1 style={{ fontSize: '24pt', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '5pt', fontFamily: 'Times New Roman' }}>
+                    <h1 style={{ fontSize: '24pt', fontWeight: 'bold', textTransform: 'uppercase', fontFamily: 'Times New Roman' }}>
                         {values.fullName}
                     </h1>
-                    <div style={{ fontSize: '9.5pt', display: 'flex', justifyContent: 'center', gap: '15pt', flexWrap: 'wrap', fontFamily: 'Times New Roman', fontWeight: 'normal' }}>
+                    <h2 style={{ fontSize: '11pt', fontWeight: 'normal', marginBottom: '5pt', fontFamily: 'Times New Roman', marginTop: '-3pt' }}>
+                        {values.professional_role}
+                    </h2>
+
+                    <div style={{ fontSize: '9.5pt', display: 'flex', justifyContent: 'center', gap: '15pt', flexWrap: 'wrap', fontFamily: 'Times New Roman', fontWeight: 'normal', borderTop: '1pt solid black', paddingTop: '8pt' }}>
                         {values.email && <span style={{ display: 'flex', alignItems: 'center', gap: '5pt' }}><Mail style={{ width: '12pt', height: '12pt', }} /> {values.email}</span>}
                         {values.phone && <span style={{ display: 'flex', alignItems: 'center', gap: '5pt' }}><Phone style={{ width: '12pt', height: '12pt' }} /> {values.phone}</span>}
                         {values.linkedin && <span style={{ display: 'flex', alignItems: 'center', gap: '5pt' }}><Linkedin style={{ width: '12pt', height: '12pt' }} /> {`LinkedIn/${values.linkedin.substring(28, values.linkedin.length)}`}</span>}
@@ -165,8 +169,6 @@ const Visor = ({ values }: VisorProps) => {
                         ))}
                     </section>
                 )}
-
-
             </div>
         </div>
     )

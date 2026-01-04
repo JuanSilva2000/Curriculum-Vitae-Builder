@@ -14,13 +14,19 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderBottomWidth: '0.5pt',
         borderBottomColor: '#000000',
-        paddingBottom: '10pt',
+        paddingBottom: '8pt',
     },
     name: {
         fontSize: '24pt',
         textTransform: 'uppercase',
-        marginBottom: '22pt',
+        marginBottom: '12pt',
         fontFamily: 'Times-Bold',
+        letterSpacing: 0,
+    },
+    professionalRole: {
+        fontSize: '11pt',
+        marginBottom: '8pt',
+        fontFamily: 'Times-Roman',
         letterSpacing: 0,
     },
     contactInfo: {
@@ -29,7 +35,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexWrap: 'wrap',
         alignItems: 'center',
-        gap: '15pt'
+        gap: '15pt',
+        borderTopWidth: '0.5pt',
+        borderTopColor: '#000000',
+        paddingTop: '9pt',
     },
     contactItem: {
         flexDirection: 'row',
@@ -52,7 +61,7 @@ const styles = StyleSheet.create({
         height: '12pt',
     },
     descriptionSection: {
-        marginTop: '15pt',
+        marginTop: '9pt',
         borderTopWidth: '0.5pt',
         borderTopColor: '#000000',
         paddingTop: '7pt',
@@ -214,7 +223,7 @@ export const CVPdf = ({ data }: CVPdfProps) => {
                 {/* Header */}
                 <View style={styles.header}>
                     <Text style={styles.name}>{data.fullName || ''}</Text>
-
+                    <Text style={styles.professionalRole}>{data.professional_role || ''}</Text>
                     <View style={styles.contactInfo}>
                         {data.email && (
                             <View style={styles.contactItem}>
