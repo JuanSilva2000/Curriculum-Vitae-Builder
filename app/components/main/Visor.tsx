@@ -129,6 +129,18 @@ const Visor = ({ values }: VisorProps) => {
                     </section>
                 )}
 
+                {/* Skills */}
+                {skills.length > 0 && (
+                    <section style={{ marginBottom: '15pt' }}>
+                        <h2 style={{ fontSize: '12pt', fontWeight: 'bold', textTransform: 'uppercase', borderBottom: '1pt solid black', marginBottom: '10pt', paddingBottom: '2pt', letterSpacing: '1px' }}>
+                            Technical Skills
+                        </h2>
+                        <div>
+                            {skills.join(', ')}
+                        </div>
+                    </section>
+                )}
+
                 {/* Experience */}
                 {experiences.length > 0 && (
                     <section style={{ marginBottom: '15pt' }}>
@@ -154,17 +166,6 @@ const Visor = ({ values }: VisorProps) => {
                     </section>
                 )}
 
-                {/* Skills */}
-                {skills.length > 0 && (
-                    <section style={{ marginBottom: '15pt' }}>
-                        <h2 style={{ fontSize: '12pt', fontWeight: 'bold', textTransform: 'uppercase', borderBottom: '1pt solid black', marginBottom: '10pt', paddingBottom: '2pt', letterSpacing: '1px' }}>
-                            Technical Skills
-                        </h2>
-                        <div>
-                            {skills.join(', ')}
-                        </div>
-                    </section>
-                )}
 
             </div>
         </div>
