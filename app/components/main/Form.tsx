@@ -322,7 +322,7 @@ const Form = ({ onValuesChange }: FormProps) => {
                                         <Field>
                                             <Input
                                                 id={`skill_${skill.id}`}
-                                                placeholder="React.js"
+                                                placeholder="React"
                                                 required
                                                 type="text"
                                                 {...register(`skill_${skill.id}`)}
