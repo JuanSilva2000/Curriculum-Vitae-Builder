@@ -1,6 +1,6 @@
 # CV Generator
 
-A web application designed to efficiently create professional, Harvard-style curriculum vitae. Users can input personal details, education history, work experience, technical skills, and projects through a structured interface. The application offers a real-time preview of the document and generates a formatted PDF ready for download.
+A web application designed to efficiently create professional, Harvard-style curriculum vitae. Users can input personal details, education history, work experience, technical skills, and projects through a structured interface. The application offers a real-time preview of the document and generates a formatted PDF ready for download. (the web IS NOT ENABLED FOR MOBBILE PHONE SCREENS YET )
 
 ## Features
 
