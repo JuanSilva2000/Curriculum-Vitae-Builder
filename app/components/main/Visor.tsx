@@ -11,6 +11,20 @@ interface VisorProps {
 }
 
 // Same helpers as used in CVPdf to ensure consistency
+const extractProjects = (data: ValuesCV) => {
+    const projects: Record<string, any> = {};
+    Object.keys(data).forEach(key => {
+        const match = key.match(/^(project_name|project_link_url|project_link_label|project_description)_(\d+)$/);
+        if (match) {
+            const field = match[1];
+            const id = match[2];
+            if (!projects[id]) projects[id] = {};
+            projects[id][field] = data[key];
+        }
+    });
+    return Object.values(projects).filter(proj => proj.project_name || proj.project_description);
+};
+
 const extractEducations = (data: ValuesCV) => {
     const educations: Record<string, any> = {};
     Object.keys(data).forEach(key => {
@@ -22,7 +36,7 @@ const extractEducations = (data: ValuesCV) => {
             educations[id][field] = data[key];
         }
     });
-    return Object.values(educations);
+    return Object.values(educations).filter(edu => edu.university || edu.career);
 };
 
 const extractExperiences = (data: ValuesCV) => {
@@ -36,7 +50,7 @@ const extractExperiences = (data: ValuesCV) => {
             experiences[id][field] = data[key];
         }
     });
-    return Object.values(experiences);
+    return Object.values(experiences).filter(exp => exp.company || exp.position);
 };
 
 const extractSkills = (data: ValuesCV) => {
@@ -60,6 +74,7 @@ const Visor = ({ values }: VisorProps) => {
     const educations = extractEducations(values);
     const experiences = extractExperiences(values);
     const skills = extractSkills(values);
+    const projects = extractProjects(values);
 
     return (
         <div className="w-1/2 h-full flex flex-col items-center gap-4 bg-gray-100 p-4 border rounded overflow-auto">
@@ -169,6 +184,44 @@ const Visor = ({ values }: VisorProps) => {
                         ))}
                     </section>
                 )}
+
+                {/* Projects */}
+                {projects.length > 0 && (
+                    <section style={{ marginBottom: '15pt' }}>
+                        <h2 style={{ fontSize: '12pt', fontWeight: 'bold', textTransform: 'uppercase', borderBottom: '1pt solid black', marginBottom: '10pt', paddingBottom: '2pt', letterSpacing: '1px' }}>
+                            Projects
+                        </h2>
+                        {projects.map((proj, index) => (
+                            <div key={index} style={{ marginBottom: '12pt' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '5pt', marginBottom: '2pt' }}>
+                                    <span style={{ fontWeight: 'bold' }}>{proj.project_name}</span>
+                                    {proj.project_link_url && (
+                                        <a
+                                            href={proj.project_link_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                fontSize: '0.8em',
+                                                border: '1px solid #06b6d4',
+                                                padding: '0 4px',
+                                                textDecoration: 'none',
+                                                color: 'inherit',
+                                                display: 'inline-block'
+                                            }}
+                                        >
+                                            {proj.project_link_label || 'Link'}
+                                        </a>
+                                    )}
+                                </div>
+                                <div style={{ textAlign: 'justify', fontSize: '10pt' }}>
+                                    {proj.project_description}
+                                </div>
+                            </div>
+                        ))}
+                    </section>
+                )}
+
+
             </div>
         </div>
     )

@@ -28,6 +28,14 @@ interface TechnicalSkill {
     name: string
 }
 
+interface Project {
+    id: number
+    name: string
+    linkUrl: string
+    linkLabel: string
+    description: string
+}
+
 interface FormProps {
     onValuesChange: (values: any) => void
 }
@@ -39,6 +47,10 @@ const Form = ({ onValuesChange }: FormProps) => {
 
     const [experiences, setExperiences] = useState<Experience[]>([
         { id: 1, company: "", position: "", startDate: "", endDate: "" }
+    ])
+
+    const [projects, setProjects] = useState<Project[]>([
+        { id: 1, name: "", linkUrl: "", linkLabel: "", description: "" }
     ])
 
     const [technicalSkills, setTechnicalSkills] = useState<TechnicalSkill[]>([
@@ -53,6 +65,17 @@ const Form = ({ onValuesChange }: FormProps) => {
     const removeTechnicalSkill = (id: number) => {
         if (technicalSkills.length > 1) {
             setTechnicalSkills(technicalSkills.filter(ts => ts.id !== id))
+        }
+    }
+
+    const addProject = () => {
+        const newId = projects.length > 0 ? Math.max(...projects.map(p => p.id)) + 1 : 1
+        setProjects([...projects, { id: newId, name: "", linkUrl: "", linkLabel: "", description: "" }])
+    }
+
+    const removeProject = (id: number) => {
+        if (projects.length > 1) {
+            setProjects(projects.filter(p => p.id !== id))
         }
     }
 
@@ -461,6 +484,96 @@ const Form = ({ onValuesChange }: FormProps) => {
                                 </Button>
                             </div>
 
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-5">
+                    <AccordionTrigger className="text-lg font-semibold cursor-pointer">Projects</AccordionTrigger>
+                    <AccordionContent>
+                        <div className="flex flex-col gap-6 overflow-y-auto h-[51vh]">
+                            {projects.map((project, index) => (
+                                <div key={project.id} className="relative border border-gray-300 rounded-lg p-4">
+                                    {projects.length > 1 && (
+                                        <Button
+                                            type="button"
+                                            onClick={() => removeProject(project.id)}
+                                            className="absolute top-2 right-2 p-2 h-8 w-8 bg-[#970404] hover:bg-[#970404]/80 text-white cursor-pointer"
+                                            title="Remove project"
+                                        >
+                                            <TrashIcon className="h-4 w-4" />
+                                        </Button>
+                                    )}
+
+                                    <FieldGroup>
+                                        <FieldSet>
+                                            <div className="flex gap-4">
+                                                <FieldGroup>
+                                                    <Field>
+                                                        <FieldLabel htmlFor={`project_name_${project.id}`}>Project Name</FieldLabel>
+                                                        <Input
+                                                            id={`project_name_${project.id}`}
+                                                            placeholder="Kanban App"
+                                                            required
+                                                            type="text"
+                                                            {...register(`project_name_${project.id}`)}
+                                                        />
+                                                    </Field>
+                                                </FieldGroup>
+
+                                                <FieldGroup>
+                                                    <Field>
+                                                        <FieldLabel htmlFor={`project_link_label_${project.id}`}>Link Label</FieldLabel>
+                                                        <Input
+                                                            id={`project_link_label_${project.id}`}
+                                                            placeholder="GitHub / Website"
+                                                            required
+                                                            type="text"
+                                                            {...register(`project_link_label_${project.id}`)}
+                                                        />
+                                                    </Field>
+                                                </FieldGroup>
+                                            </div>
+
+                                            <FieldGroup>
+                                                <Field>
+                                                    <FieldLabel htmlFor={`project_link_url_${project.id}`}>Link URL</FieldLabel>
+                                                    <Input
+                                                        id={`project_link_url_${project.id}`}
+                                                        placeholder="https://..."
+                                                        required
+                                                        type="url"
+                                                        {...register(`project_link_url_${project.id}`)}
+                                                    />
+                                                </Field>
+                                            </FieldGroup>
+
+                                            <FieldGroup>
+                                                <Field>
+                                                    <FieldLabel htmlFor={`project_description_${project.id}`}>Description</FieldLabel>
+                                                    <Textarea
+                                                        id={`project_description_${project.id}`}
+                                                        placeholder="Description"
+                                                        required
+                                                        {...register(`project_description_${project.id}`)}
+                                                    />
+                                                </Field>
+                                            </FieldGroup>
+                                        </FieldSet>
+                                    </FieldGroup>
+                                </div>
+                            ))}
+
+                            <div className="flex justify-end">
+                                <Button
+                                    type="button"
+                                    onClick={addProject}
+                                    className="flex items-center gap-2 bg-[#5E548E] hover:bg-[#443B6F] text-white cursor-pointer"
+                                >
+                                    <PlusIcon className="h-5 w-5" />
+                                    Add Project
+                                </Button>
+                            </div>
                         </div>
                     </AccordionContent>
                 </AccordionItem>

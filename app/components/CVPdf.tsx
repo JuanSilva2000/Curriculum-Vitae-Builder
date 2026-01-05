@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
     },
     contactInfo: {
-        fontSize: '10pt',
+        fontSize: '11pt',
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         // border: '1pt solid #000000',
     },
     contactText: {
-        fontSize: '10pt',
+        fontSize: '11pt',
         color: '#000000',
         marginTop: '3.5pt', // Ajuste manual para centrar verticalmente con el icono
         textDecoration: 'none',
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         paddingTop: '7pt',
     },
     descriptionText: {
-        fontSize: '10pt',
+        fontSize: '12.5pt',
         textAlign: 'justify',
         lineHeight: 1.5,
     },
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Times-Roman',
     },
     expDescription: {
-        fontSize: '10pt',
-        textAlign: 'justify',
+        fontSize: '12.5pt',
+        textAlign: 'left',
         marginTop: '1pt',
         lineHeight: 1.5,
     },
@@ -126,6 +126,7 @@ interface CVPdfProps {
 }
 
 // Helpers
+// Helpers
 const extractEducations = (data: ValuesCV) => {
     const educations: Record<string, any> = {};
     Object.keys(data).forEach(key => {
@@ -137,7 +138,7 @@ const extractEducations = (data: ValuesCV) => {
             educations[id][field] = data[key];
         }
     });
-    return Object.values(educations);
+    return Object.values(educations).filter(edu => edu.university || edu.career);
 };
 
 const extractExperiences = (data: ValuesCV) => {
@@ -151,7 +152,21 @@ const extractExperiences = (data: ValuesCV) => {
             experiences[id][field] = data[key];
         }
     });
-    return Object.values(experiences);
+    return Object.values(experiences).filter(exp => exp.company || exp.position);
+};
+
+const extractProjects = (data: ValuesCV) => {
+    const projects: Record<string, any> = {};
+    Object.keys(data).forEach(key => {
+        const match = key.match(/^(project_name|project_link_url|project_link_label|project_description)_(\d+)$/);
+        if (match) {
+            const field = match[1];
+            const id = match[2];
+            if (!projects[id]) projects[id] = {};
+            projects[id][field] = data[key];
+        }
+    });
+    return Object.values(projects).filter(proj => proj.project_name || proj.project_description);
 };
 
 const extractSkills = (data: ValuesCV) => {
@@ -200,6 +215,7 @@ const IconGithub = ({ style }: IconProps) => (
 export const CVPdf = ({ data }: CVPdfProps) => {
     const educations = extractEducations(data);
     const experiences = extractExperiences(data);
+    const projects = extractProjects(data);
     const skills = extractSkills(data);
 
     // Helper para acortar URLs (igual que en Visor)
@@ -310,6 +326,34 @@ export const CVPdf = ({ data }: CVPdfProps) => {
                     </View>
                 )}
 
+                {/* Projects */}
+                {projects.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Projects</Text>
+                        {projects.map((proj, index) => (
+                            <View key={index} style={{ marginBottom: '12pt' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: '5pt', marginBottom: '2pt' }}>
+                                    <Text style={styles.bold}>{proj.project_name}</Text>
+                                    {proj.project_link_url && (
+                                        <Link src={proj.project_link_url} style={{
+                                            fontSize: '9pt',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            border: '1pt solid #06b6d4',
+                                            // padding: '0 4pt',
+                                            textDecoration: 'none',
+                                            color: '#000000',
+                                        }}>
+                                            <Text>{proj.project_link_label || 'Link'}</Text>
+                                        </Link>
+                                    )}
+                                </View>
+                                <Text style={styles.expDescription}>{proj.project_description}</Text>
+                            </View>
+                        ))}
+                    </View>
+                )}
             </Page>
         </Document>
     );
