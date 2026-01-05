@@ -89,12 +89,14 @@ const Visor = ({ values }: VisorProps) => {
                 </PDFDownloadLink>
             )}
 
+            <p className="text-center text-gray-500 text-xs">* The current viewer displays the height of two A4 sheets, but when downloaded, two separate sheets could be displayed.</p>
+
             {/* DOM Preview - A4 Size Simulation */}
             <div
                 className="bg-white text-black font-serif shadow-2xl box-border mx-auto"
                 style={{
                     width: '185mm',
-                    minHeight: '261.64mm',
+                    minHeight: '530mm',
                     padding: '30pt',
                     fontSize: '11pt',
                     lineHeight: '1.5',

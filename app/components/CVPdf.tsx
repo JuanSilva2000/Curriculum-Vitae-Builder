@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         marginBottom: '15pt',
     },
     sectionTitle: {
-        fontSize: '12pt',
+        fontSize: '15pt',
         fontFamily: 'Times-Bold',
         textTransform: 'uppercase',
         borderBottomWidth: '0.5pt',
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     },
     educationItem: {
         marginBottom: '8pt',
+        fontSize: '12pt',
     },
     experienceItem: {
         marginBottom: '12pt',
@@ -105,6 +106,14 @@ const styles = StyleSheet.create({
     },
     bold: {
         fontFamily: 'Times-Bold',
+    },
+    company: {
+        fontFamily: 'Times-Bold',
+        fontSize: '12pt',
+    },
+    position: {
+        fontFamily: 'Times-Roman',
+        fontSize: '10pt',
     },
     normal: {
         fontFamily: 'Times-Roman',
@@ -311,8 +320,8 @@ export const CVPdf = ({ data }: CVPdfProps) => {
                             <View key={index} style={styles.experienceItem}>
                                 <View style={styles.row}>
                                     <View style={styles.leftCol}>
-                                        <Text style={styles.bold}>{exp.company || ''}</Text>
-                                        <Text style={styles.normal}>{exp.position || ''}</Text>
+                                        <Text style={styles.company}>{exp.company || ''}</Text>
+                                        <Text style={styles.position}>{exp.position || ''}</Text>
                                     </View>
                                     <View style={styles.rightCol}>
                                         <Text>{exp.start_date_experience || ''} - {exp.end_date_experience || ''}</Text>
@@ -340,10 +349,11 @@ export const CVPdf = ({ data }: CVPdfProps) => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            border: '1pt solid #06b6d4',
+                                            // border: '1pt solid #06b6d4',
                                             // padding: '0 4pt',
-                                            textDecoration: 'none',
+                                            textDecoration: 'underline',
                                             color: '#000000',
+                                            fontFamily: 'Times-Roman',
                                         }}>
                                             <Text>{proj.project_link_label || 'Link'}</Text>
                                         </Link>
